@@ -352,6 +352,57 @@ body {
 
 .hero h1 { font-size: 8vw; font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; margin-bottom: 1.5rem; margin-top: -5vh; }
 .sleek-tagline { font-family: var(--font-mono); font-size: 1rem; font-weight: 400; letter-spacing: 0.02em; color: var(--text-secondary); text-transform: uppercase;}
+/* --- CLI INSTALL CAPSULE --- */
+.cli-capsule {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: var(--c-darkest);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    border-radius: 100px;
+    margin-top: 2.5rem;
+    cursor: pointer;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cli-capsule:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.3);
+}
+
+.cli-prompt {
+    font-family: var(--font-mono);
+    color: #555;
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+.cli-command {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--c-lightest);
+    letter-spacing: 0.02em;
+}
+
+.cli-copy-btn {
+    background: #292929;
+    color: var(--c-lightest);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.cli-capsule:hover .cli-copy-btn {
+    background: var(--c-lightest);
+    color: var(--c-darkest);
+}
 
 .bottom-nav-container { position: absolute; bottom: 4rem; left: 0; right: 0; display: flex; justify-content: center; z-index: 10; }
 
@@ -372,6 +423,404 @@ body {
 }
 
 .enter-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: var(--shadow-hover); opacity: 0.9; }
+
+/* --- HERO SPLIT LAYOUT --- */
+.hero-split {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    gap: 4rem;
+}
+
+/* Left: Branding */
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.hero-left h1 {
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+}
+
+.hero-left .sleek-tagline {
+    margin-bottom: 4rem;
+}
+
+/* Right: Minimalist Terminal */
+.hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    gap: 3.5rem; /* Increased breathing room between terminal and link */
+    width: 100%;
+    margin-top: 12rem; /* Massively pushes the terminal further down the viewport */
+}
+
+/* --- TERMINAL WINDOW INFRASTRUCTURE --- */
+.hero-terminal {
+    background: #0A0A0A; 
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 700px;
+    transform: translateY(-10px); /* Physically lifts the element off the baseline */
+    /* Layered shadows create a sharp, architectural float effect instead of a muddy blur */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 
+                0 60px 120px -20px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.terminal-header {
+    background: #141414; /* Slightly lighter header to contrast the body */
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.term-mac-dots {
+    display: flex;
+    gap: 8px;
+}
+
+/* Authentic macOS Traffic Light Colors with subtle borders */
+.term-mac-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.dot-red { background: #FF5F56; border: 1px solid #E0443E; }
+.dot-yellow { background: #FFBD2E; border: 1px solid #DEA123; }
+.dot-green { background: #27C93F; border: 1px solid #1AAB29; }
+
+.term-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #666;
+    letter-spacing: 0.05em;
+}
+
+.terminal-body {
+    padding: 3rem 2.5rem; 
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex: 1; /* Pushes the content naturally within the taller window */
+}
+
+.term-line {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.2rem 1.5rem; /* Chunkier, more clickable code blocks */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.term-line:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.term-prompt {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: #555;
+    user-select: none;
+}
+
+.term-cmd {
+    font-family: var(--font-mono);
+    color: var(--c-lightest);
+    font-size: 1.15rem;
+    font-weight: 500;
+    flex: 1;
+    letter-spacing: 0.02em;
+}
+
+.term-comment {
+    font-family: var(--font-mono);
+    color: #555;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.term-copy {
+    background: transparent;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.term-copy:hover {
+    color: var(--c-lightest);
+    transform: scale(1.1);
+}
+
+/* Ensure mobile stacking works */
+@media (max-width: 1024px) {
+    .hero-split {
+        grid-template-columns: 1fr;
+        padding: 6rem 2rem;
+        gap: 4rem;
+    }
+    
+    .hero-left {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .hero-right {
+        justify-content: center;
+    }
+}
+
+/* --- HERO SPLIT LAYOUT: ULTRA MINIMAL --- */
+.hero-split {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr; /* Gives more room to the massive terminal */
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    gap: 4rem;
+}
+
+/* Left: Branding */
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.micro-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.massive-title {
+    font-size: clamp(5rem, 10vw, 9rem);
+    font-weight: 500;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    margin-bottom: 4rem;
+    margin-left: -0.04em; 
+}
+
+.labs-text {
+    color: var(--text-secondary); /* Dims 'Labs' slightly for depth */
+}
+
+/* Right: Massive Terminal & Docs */
+/* --- RIGHT COLUMN: CENTERED ALIGNMENT --- */
+.hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Optically centers the terminal vertically */
+    align-items: center; /* Centers the button under the terminal */
+    gap: 3rem; /* Deliberate breathing room between terminal and button */
+    width: 100%;
+    margin-top: 2rem; /* Pushes the entire block slightly down */
+}
+
+/* --- AUTHENTIC MACOS TERMINAL --- */
+.hero-terminal {
+    background: #0A0A0A; 
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Sharper outer edge */
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.terminal-header {
+    background: linear-gradient(180deg, #2D2D2D 0%, #1E1E1E 100%); /* Authentic macOS window chrome */
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #000; /* Deep cut below the header */
+    position: relative;
+}
+
+.term-mac-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.term-mac-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.dot-red { background: #FF5F56; border: 1px solid #E0443E; }
+.dot-yellow { background: #FFBD2E; border: 1px solid #DEA123; }
+.dot-green { background: #27C93F; border: 1px solid #1AAB29; }
+
+.term-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    font-family: var(--font-sans); /* OS uses sans-serif for window titles */
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* --- TERMINAL INTERIOR --- */
+.terminal-body {
+    padding: 2rem 2.5rem 3rem 2.5rem; 
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.term-session-start {
+    font-family: var(--font-mono);
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.term-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.term-comment {
+    font-family: var(--font-mono);
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.term-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: transparent; /* Removes the boxy background for a raw terminal feel */
+    border-radius: 0;
+}
+
+.term-prompt {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: #4ade80; /* Classic terminal green for the user prompt */
+}
+
+.term-cmd {
+    font-family: var(--font-mono);
+    color: var(--c-lightest);
+    font-size: 1.1rem;
+    flex: 1;
+    letter-spacing: 0.02em;
+}
+
+.term-copy {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    color: #888;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.term-copy:hover {
+    background: var(--c-lightest);
+    color: var(--c-darkest);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+/* --- HARDWARE DOCS BUTTON --- */
+.docs-btn-premium {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 6px; /* Space between text and underline */
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--c-darkest); /* Stark, permanent underline */
+    color: var(--c-darkest); 
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.docs-btn-premium:hover {
+    opacity: 0.5; /* Fades for that high-fashion interaction */
+    transform: translateY(-2px);
+}
+
+.docs-btn-premium svg {
+    transition: transform 0.3s ease;
+}
+
+.docs-btn-premium:hover svg {
+    transform: translateX(4px);
+}
+
+@media (max-width: 1024px) {
+    .hero-split {
+        grid-template-columns: 1fr;
+        padding: 8rem 2rem 4rem 2rem;
+        gap: 5rem;
+    }
+    
+    .massive-title {
+        font-size: clamp(4.5rem, 12vw, 6rem);
+    }
+
+    .hero-right {
+        align-items: center; /* Center everything on mobile */
+    }
+    
+    .secondary-btn {
+        margin-right: 0;
+    }
+}
 
 /* --- STATIC SCROLL INDICATOR --- */
 .scroll-indicator {
